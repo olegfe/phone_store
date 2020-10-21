@@ -1,0 +1,48 @@
+{% extends "app/layout.html" %}
+
+{% block content %}{% load staticfiles %}
+
+<div class="container">
+		
+        <div class="title_pol">
+				<h1>Кто же мы такие</h1>
+				<p>Мы — рекламная типография «Colorprint». Мы делаем яркие цветные картинки на бумаге, делаем их хорошо и вовремя.Визитки и карманные календарики, папки и наклейки, листовки и перекидные календари, евробуклеты и флаерсы, открытки и приглашения, дипломы и каталоги, меню и плакаты, на обычной или нестандартной бумаге,с обычной или сложной обработкой — все это мы умеем и можем сделать быстро, необычно, иногда дешево и всегда хорошo.</p>
+        </div>
+
+
+        <div class="metod_rab">
+        <div class="methods">
+        
+        <div class="methods_item">
+					
+					<div class="methods_img"> <img src="{% static 'app/content/fast.png' %}" alt="fast"/></div>
+					<div class="methods_method">Быстро</div>
+					<div class="about_method">Сдаем средние и крупные тиражи за 3 дня</div>
+        </div>
+				<div class="methods_item">
+					
+					<div class="methods_img"><img src="{% static 'app/content/quality.png' %}" alt="quality"/></div>
+					<div class="methods_method">Качественно</div>
+					<div class="about_method">Используем в работе только лучшие европейские и зарубежные материалы</div>
+				</div>
+				<div class="methods_item">
+					
+					<div class="methods_img"><img src="{% static 'app/content/in_time.png' %}" alt="in_time"/>  </div>
+					<div class="methods_method">Вовремя</div>
+					<div class="about_method">Отгружаем тиражи даже в выходные, производство работает круглосуточно</div>
+				</div>
+				<div class="methods_item">
+					
+					<div class="methods_img"><img src="{% static 'app/content/secure.png' %}" alt="secure"/>   </div>
+					<div class="methods_method">Надежно</div>
+					<div class="about_method">Собственное производство, проверенные технологии</div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+		
+		
+{% endblock %}
