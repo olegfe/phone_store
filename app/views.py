@@ -10,9 +10,11 @@ from.forms import AnketaForm
 from django.contrib.auth.forms import UserCreationForm
 from django.db import models
 from .models import Blog
-from .models import Comment
+from .models import Comment, Contact
 from .forms import CommentForm
-from .forms import BlogForm
+from .forms import BlogForm, ContactForm
+from django.db.models import Count
+from django.shortcuts import render
 
 
 
@@ -29,16 +31,19 @@ def home(request):
     )
 
 def contact(request):
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
+    assert isinstance(request, HttpRequest) 
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact = form.save(commit=False)
+            contact.save()
+    else:
+        form = ContactForm()
+    
+     
     return render(
         request,
-        'app/contact.html',
-        {
-            'title':'Контакты',
-            'message':'Наши контакты.',
-            'year':datetime.now().year,
-        }
+        'app/contact.html', {'form': form}
     )
 
 def about(request):
@@ -124,22 +129,18 @@ def registration(request):
     return render(request, 'app/registration.html', {'regform':regform, 'year':datetime.now().year,})
 
 def blog(request):
+    comment_count = Comment.objects.annotate(comments=Count('id')).all()
     posts = Blog.objects.all() #запрос на выбор всех статей из модели
     assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/blog.html',
-        {
-            'title':'Полезные статьи',
-            'posts':posts,
-            'year':datetime.now().year,
-        }
-    )
+    return render(request,'app/blog.html',{'title':'Полезные статьи','posts':posts,'year':datetime.now().year } )
+
+
 
 
 def blogpost(request,parametr):
     post_1 = Blog.objects.get(id=parametr) #запрос на выбор конкретной статьи по параметру
     comments = Comment.objects.filter(post=parametr)
+    
 
     if request.method == "POST": #после отправки данных формы на сервер мтеодом POST
         form = CommentForm(request.POST)

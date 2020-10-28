@@ -1,12 +1,11 @@
 """
 Definition of models.
 """
+from django.contrib.contenttypes.fields import GenericRelation
 
 from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
-
-
 from datetime import datetime
 from django.core.urlresolvers import reverse
 # Create your models here.
@@ -19,6 +18,8 @@ class Blog(models.Model):
     posted = models.DateTimeField(default = datetime.now(),db_index = True, verbose_name = "Опубликована")
     author = models.ForeignKey(User, null=True, blank=True, on_delete = models.SET_NULL, verbose_name = "Автор")
     image = models.FileField(default = 'temp.jpg', verbose_name = "Путь к картинке")
+
+   
 
     def get_absolute_urls(self): #метод возвращает строку с уникальным интернет адресом записи
         return reverse("blogpost", args=[str(self.id)])
@@ -39,6 +40,7 @@ class Comment(models.Model):
     date = models.DateTimeField(default = datetime.now(),db_index = True, verbose_name = "Дата")
     author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = "Автор")
     post = models.ForeignKey(Blog, on_delete = models.CASCADE, verbose_name = "Статья")
+   
 
     def __str__(self):
         return 'Комментарий %s к %s' %(self.author, self.post)
@@ -50,3 +52,9 @@ class Comment(models.Model):
         ordering= ["-date"]
 
 admin.site.register(Comment)
+
+class Contact(models.Model):
+    email = models.EmailField(max_length = 255 , verbose_name = 'email')
+    text = models.CharField(max_length = 1000, verbose_name = 'Вопрос')
+
+admin.site.register(Contact)
