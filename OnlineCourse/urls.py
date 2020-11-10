@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^goods/', include('shop.urls',  namespace='shop')),
     url(r'^cart/', include('cart.urls', namespace='cart')),
     url(r'^orders/', include('orders.urls', namespace='orders')),
+
     url(r'^contact$', app.views.contact, name='contact'),
     url(r'^about$', app.views.about, name='about'),
     url(r'^links$', app.views.links, name='links'),
@@ -35,6 +36,8 @@ urlpatterns = [
     url(r'^registration$', app.views.registration, name='registration'),
     url(r'^newpost$', app.views.newpost, name='newpost'),
     url(r'^videopost$', app.views.videopost, name='videopost'),
+    url(r'^my_orders$', app.views.my_orders, name='my_orders'),
+
     
     
    

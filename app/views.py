@@ -11,6 +11,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import models
 from .models import Blog
 from .models import Comment, Contact
+from shop.models import Category
+from shop.models import Product
 from .forms import CommentForm
 from .forms import BlogForm, ContactForm
 from django.db.models import Count
@@ -18,16 +20,17 @@ from django.shortcuts import render
 
 
 
-def home(request):
+def home(request,category_slug=None):
     """Renders the home page."""
+    category = None
+    categories = Category.objects.all()
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
     assert isinstance(request, HttpRequest)
     return render(
         request,
         'app/index.html',
-        {
-            'title':'Главная',
-            'year':datetime.now().year,
-        }
+        {'category': category,'categories': categories}
     )
 
 def contact(request):
@@ -129,7 +132,7 @@ def registration(request):
     return render(request, 'app/registration.html', {'regform':regform, 'year':datetime.now().year,})
 
 def blog(request):
-    comment_count = Comment.objects.annotate(comments=Count('id')).all()
+    #comment_count = Comment.objects.annotate(comments=Count('id')).all()
     posts = Blog.objects.all() #запрос на выбор всех статей из модели
     assert isinstance(request, HttpRequest)
     return render(request,'app/blog.html',{'title':'Полезные статьи','posts':posts,'year':datetime.now().year } )
@@ -205,5 +208,14 @@ def videopost(request):
             'year':datetime.now().year,
         }
     )
+
+def my_orders(request):
+    """Renders the about page."""
+    products = Product.objects.all()
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/my_orders.html', {'products': products}
+         )
 
 

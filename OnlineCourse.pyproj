@@ -31,6 +31,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app\admin.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
     <Compile Include="app\tests.py" />
@@ -116,6 +119,7 @@
     <Content Include="app\templates\app\blogpost.html" />
     <Content Include="app\templates\app\links.html" />
     <Content Include="app\templates\app\anketa.html" />
+    <Content Include="app\templates\app\my_orders.html" />
     <Content Include="app\templates\app\newpost.html" />
     <Content Include="app\templates\app\registration.html" />
     <Content Include="app\templates\app\videopost.html" />

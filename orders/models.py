@@ -1,9 +1,10 @@
 from django.db import models
 import django
 from shop.models import Product
-
+from django.contrib.auth.models import User
 
 class Order(models.Model):
+    
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
@@ -28,6 +29,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+    
     order = models.ForeignKey(Order, related_name='items')
     product = models.ForeignKey(Product, related_name='order_items')
     price = models.DecimalField(max_digits=10, decimal_places=2)

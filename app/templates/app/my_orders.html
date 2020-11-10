@@ -1,0 +1,17 @@
+
+{%  extends 'app/layout.html' %}
+
+
+{% block content %} 
+<div class=" my_orders">
+
+{% for product in products %}
+
+{{product.name}}
+
+
+
+{% endfor %}
+</div>
+
+{% endblock %}

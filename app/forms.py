@@ -6,6 +6,8 @@ from django import forms
 from django.db import models
 from .models import Comment
 from .models import Blog, Contact
+from django.contrib.auth.models import User
+import datetime
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
@@ -48,11 +50,26 @@ class CommentForm(forms.ModelForm):
         labels = {'text': "Комментарий"} #метка к полю формы text
 
 
+
+
+
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ('title','description','content','posted','author','image')
-        labels = {'title': "Заголовок", 'description':"Краткое описание", 'content':"Содержание", 'posted':"Дата",'author':"Автор",'image':"Картинка"}
+        fields = ('title','description','content','posted','image', 'author')
+        #author = forms.ModelChoiceField(queryset = User.objects.all())
+        labels = {'title': "Заголовок", 'description':"Краткое описание", 'content':"Содержание", 'posted':"Дата",'image':"Картинка"}
+
+        widgets = {
+            'title': forms.TextInput(attrs={"class": "form-control", "placeholder": "Заголовок статьи"}),
+            'description': forms.Textarea(attrs={"class": "form-control", "placeholder": "Краткое содержание"}),
+            'content' : forms.Textarea(attrs={"class": "form-control", "placeholder": "Полное содержание"}),
+            'posted' : forms.DateInput(format="%d.%m.%Y %H:%M:%S", attrs={"class": "form-control","value": datetime.datetime.strftime(datetime.datetime.now(), format="%d.%m.%Y %H:%M"),"type": "datetime", }),
+            'image': forms.FileInput(),
+            'author' : forms.Select(attrs={"class":"form-control"}),
+            
+            }
+
 
 class ContactForm(forms.ModelForm):
     

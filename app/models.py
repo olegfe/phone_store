@@ -51,10 +51,24 @@ class Comment(models.Model):
         verbose_name_plural = "Комментарии к статьям блога"
         ordering= ["-date"]
 
-admin.site.register(Comment)
+
 
 class Contact(models.Model):
     email = models.EmailField(max_length = 255 , verbose_name = 'email')
     text = models.CharField(max_length = 1000, verbose_name = 'Вопрос')
+    date = models.DateTimeField(default = datetime.now(),db_index = True, verbose_name = "Дата")
 
-admin.site.register(Contact)
+    def __str__(self):
+       return self.email
+
+    class Meta:
+        verbose_name = "Вопрос от пользователя"
+        verbose_name_plural = "Вопросы от пользователей"
+        ordering = ["-date"]
+
+
+
+
+
+
+

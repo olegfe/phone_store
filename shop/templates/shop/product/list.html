@@ -1,4 +1,4 @@
-﻿{% extends 'app/layout.html' %}
+{% extends 'app/layout.html' %}
 {% load staticfiles %}
 {% block title %}
 <!--{% if category %}{{ category.name }}{% else %}Товары{% endif %}-->
@@ -253,7 +253,7 @@
 							
                    
                             <a href="{{ product.get_absolute_url }}">
-                            <img src="{% if product.image %}{{ product.image.url }}{%else %}{% static 'app/content/products/no_image.png' %}{% endif %}">
+                            <img src="{% if product.image1 %}{{ product.image1.url }}{%else %}{% static 'app/content/products/no_image.png' %}{% endif %}">
                                </a>
 
 							<a href="{{ product.get_absolute_url }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 "  >

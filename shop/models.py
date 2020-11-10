@@ -26,7 +26,11 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products')
     name = models.CharField(max_length=200, db_index=True, verbose_name="Название")
     slug = models.SlugField(max_length=200, db_index=True)
-    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, verbose_name = "Картинка")
+    image1 = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, verbose_name = "Картинка_1")
+    image2 = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, verbose_name = "Картинка_2")
+    image3 = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, verbose_name = "Картинка_3")
+
+
     case_type = models.CharField (max_length = 255 ,default = "input", verbose_name = "Тип корпуса")
     duo_sim = models.BooleanField (default = True, verbose_name = "Поддержка двух сим карт")
     sim_type = models.CharField(max_length=255, default="input", verbose_name = "Тип SIM-карты")

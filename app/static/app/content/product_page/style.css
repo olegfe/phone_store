@@ -5,34 +5,56 @@ h1 h2 h3 h4 p {
 
 
 .container_product_page {
+  padding:0 auto;
   margin:0 auto;
   margin-top:150px;
-  max-width: 1200px;
-  border:1px solid #222;
+  max-width: 1300px;
+
+  /*border:1px solid #222;*/
+  position:relative;
 
  
 }
 
 .product {
-  float:left;
+  display: inline-block;
+  padding:0;
+  margin:0 auto;
+  margin:25px;
+  text-align:left;
+  width:33.33333%;
+  
+
+  
+  
 }
 
-.about_product h1 {
-  
-}
+.product img  {
+  margin:0;
+  position:absolute;
+  top:15px;
+  left:0px;
 
-.product {
   
-  
-}
-.product p {
+  width:25em;
+  height:30em;
  
-}
+ }
 
-.image img {
-width:40%;
-height:60%;
-}
+ .table  {
+  margin:0 auto;
+
+  margin-top:130px;
+ }
+
+
+
+
+
+
+
+
+
 
 .table>tbody>tr.active>td,
 .table>tbody>tr.active>th,
@@ -81,7 +103,7 @@ height:60%;
   position: relative;
   top: 1px;
   display: inline-block;
-  font-family: 'Glyphicons Halflings';
+  font-family: 'Manrope Regular';
   font-style: normal;
   font-weight: 400;
   line-height: 1;
@@ -99,4 +121,9 @@ height:60%;
   content: "\2212";
 }
 
+.table{
+  
+  margin-top:25px;
+  
+}
 

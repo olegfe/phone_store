@@ -43,12 +43,19 @@
 
     <link href="/docs/4.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!--order_create-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+    <!---------------------------------------------------------------------------order_create------------------------------------------------------------------------------>
 
-    <!-- Для слайдера Наши клиенты-->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">-->
+
+    <!---------------------------------------------------------- Для слайдера Наши бренды--------------------------------------------------------------->
+
     
-
+    
+    
+  
+    
+    
+    <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
     
 </head>
@@ -61,18 +68,23 @@
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
 			<!-- Topbar -->
-			<div class="top-bar m-t-0">  <!-- добавил m-t--25 чтобы сдвинуть к верху полоску -->
+			<div class="top-bar m-t-0">  <!-- добавил m-t--25 чтобы сдвинуть к верху полоску/ но потом пересохранил в UTF-8 и удалил m-t-25 -->
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
 						Смартфоны на любой вкус!
 					</div>
 
 					<div class="right-top-bar flex-w h-full">
+
+                        
 						<!--<a href="#" class="flex-c-m trans-04 p-lr-25"></a>-->
 					    {% if user.is_authenticated %}
                         <form id="logoutForm" action="/logout" method="post" class="flex-c-m trans-04 p-lr-25">
                          {% csrf_token %}
-                        Привет, {{ user.username }} </form>
+                         Привет, {{ user.username }} </form>
+                        {% if  user.is_authenticated %}
+                        <a href="{% url 'my_orders' %}" class="flex-c-m trans-04 p-lr-25"> Мои заказы</a>
+                        {% endif %}
                         <a href="javascript:document.getElementById('logoutForm').submit()" class="flex-c-m trans-04 p-lr-25"  >Выйти</a>
                          
 
@@ -80,6 +92,12 @@
 						<a href="{% url 'login' %}" class="flex-c-m trans-04 p-lr-25" >Войти</a> 
 							
 						{% endif %}
+
+                        {% if not user.is_authenticated %}
+                            <a href="{% url 'registration' %}"  class="flex-c-m trans-04 p-lr-25">Регистрация</a>
+
+                            {% endif %}
+
                         <a href="#" class="flex-c-m trans-04 p-lr-25">
 							РУ
 						</a>
@@ -133,15 +151,12 @@
 								<a href="{% url 'videopost' %}">Видео</a>
 							</li>
 
-                            {% if not user.is_authenticated %}
-                            <li><a href="{% url 'registration' %}">Регистрация</a></li>
-
-                            {% endif %}
+                           
 
 						</ul>
                        
 						
-                   
+                            {% if user.is_authenticated %}
                             {% with total_items=cart|length %}
 						    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{ total_items }}">
                               
@@ -149,6 +164,7 @@
 							<i >  </i>
 						    </div>
                             {% endwith %}
+                        {% endif %}
 
 							
 				    </div>
@@ -235,7 +251,7 @@
 			    </li>
 
 				<li>
-					<a href="{% url 'blog' %}">Блог</a>
+					<a href="{% url 'blog' %}">Новости</a>
 				</li>
 
 				<li>
@@ -286,33 +302,19 @@
 			<div class="row">
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						Categories
+						Категории
 					</h4>
 
 					<ul>
+                        {% for c in categories %}
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Women
-							</a>
+							
+					<a  class="stext-107 cl7 hov-cl1 trans-04" data-filter=".women" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+						
 						</li>
+                        {% endfor %}
 
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Men
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shoes
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Watches
-							</a>
-						</li>
+						
 					</ul>
 				</div>
 
@@ -323,28 +325,24 @@
 
 					<ul>
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Track Order
+							<a href="{% url 'about' %}" class="stext-107 cl7 hov-cl1 trans-04">  О нас
+								
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Returns 
+							<a href="{% url 'shop:product_list' %}" class="stext-107 cl7 hov-cl1 trans-04">
+								Каталог 
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shipping
+							<a href="{% url 'blog' %}" class="stext-107 cl7 hov-cl1 trans-04">
+								Новости
 							</a>
 						</li>
 
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								FAQs
-							</a>
-						</li>
+						
 					</ul>
 				</div>
 
@@ -354,7 +352,8 @@
 					</h4>
 
 					<p class="stext-107 cl7 size-201">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+						Россия, г.Псков, ул.Ротная, д.37
+                        +7900 955 22 25
 					</p>
 
 					<div class="p-t-27">
@@ -374,7 +373,7 @@
 
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						Newsletter
+						Хотите получать нововсти с сайта?
 					</h4>
 
 					<form>
@@ -385,7 +384,7 @@
 
 						<div class="p-t-18">
 							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-								Subscribe
+								Подписаться
 							</button>
 						</div>
 					</form>
@@ -394,31 +393,11 @@
 
 			<div class="p-t-40">
 				<div class="flex-c-m flex-w p-b-18">
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-01.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-02.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-03.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-04.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
-					</a>
+					
 				</div>
 
 				<p class="stext-107 cl6 txt-center">
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					
 
 				</p>
 			</div>
@@ -433,9 +412,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</span>
 	</div>
 
-	
+	<!--------------------------НАШИ БРЕНДЫ----------------------------------->
+    
 
-
+    <!-- ----------------------------------------------------------------------------->
     <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
 	<script src="{% static 'app/content/site/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
 <!--===============================================================================================-->
