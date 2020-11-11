@@ -33,7 +33,11 @@ def home(request,category_slug=None):
         {'category': category,'categories': categories}
     )
 
-def contact(request):
+def contact(request,category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
     assert isinstance(request, HttpRequest) 
     if request.method == "POST":
         form = ContactForm(request.POST)
@@ -46,7 +50,7 @@ def contact(request):
      
     return render(
         request,
-        'app/contact.html', {'form': form}
+        'app/contact.html', {'category': category,'categories': categories,'form': form}
     )
 
 def about(request):
@@ -131,16 +135,24 @@ def registration(request):
     assert isinstance(request,HttpRequest)
     return render(request, 'app/registration.html', {'regform':regform, 'year':datetime.now().year,})
 
-def blog(request):
+def blog(request,category_slug=None):
     #comment_count = Comment.objects.annotate(comments=Count('id')).all()
+    category = None
+    categories = Category.objects.all()
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
     posts = Blog.objects.all() #запрос на выбор всех статей из модели
     assert isinstance(request, HttpRequest)
-    return render(request,'app/blog.html',{'title':'Полезные статьи','posts':posts,'year':datetime.now().year } )
+    return render(request,'app/blog.html',{'title':'Полезные статьи','posts':posts,'year':datetime.now().year,'category': category,'categories': categories } )
 
 
 
 
-def blogpost(request,parametr):
+def blogpost(request,parametr,category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
     post_1 = Blog.objects.get(id=parametr) #запрос на выбор конкретной статьи по параметру
     comments = Comment.objects.filter(post=parametr)
     
@@ -164,7 +176,7 @@ def blogpost(request,parametr):
         request,
         'app/blogpost.html',
         {
-            
+            'category': category,'categories': categories,
             'post_1':post_1, #передача конкретной статьи в шаблон веб стр
             'comments':comments,
             'form':form,

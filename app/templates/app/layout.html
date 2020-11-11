@@ -39,23 +39,16 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'app/content/site/css/util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'app/content/site/css/main.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'app/content/product_page/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/product_page/style.css' %}"> <!--Отвечает за строчку ХАРАКТЕРИСТИКИ , разворачивает ее-->
 
-    <link href="/docs/4.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <!---------------------------------------------------------------------------order_create------------------------------------------------------------------------------>
-
-    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">-->
+    
 
     <!---------------------------------------------------------- Для слайдера Наши бренды--------------------------------------------------------------->
+    
+    
 
     
-    
-    
-  
-    
-    
-    <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+   <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
     
 </head>
@@ -295,7 +288,7 @@
              
 	</header>
 
-    {% block content %}{% endblock %}
+{% block content %}{% endblock %}
 
     <footer class="bg3 p-t-75 p-b-32">
 		<div class="container">
@@ -414,15 +407,17 @@
 
 	<!--------------------------НАШИ БРЕНДЫ----------------------------------->
     
+   
 
-    <!-- ----------------------------------------------------------------------------->
-    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+    <!------------------------------------------------------------------------------->
+    <!--<script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>-->
+
 	<script src="{% static 'app/content/site/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
 <!--===============================================================================================-->
 	<script src="{% static 'app/content/site/vendor/animsition/js/animsition.min.js' %}"></script>
 <!--===============================================================================================-->
 	<script src="{% static 'app/content/site/vendor/bootstrap/js/popper.js' %}"></script>
-	<script src="{% static 'app/content/site/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'app/content/site/vendor/bootstrap/js/bootstrap.min.js' %}"></script>   
 <!--===============================================================================================-->
 	<script src="{% static 'app/content/site/vendor/select2/select2.min.js' %}"></script>
 	<script>
@@ -522,15 +517,7 @@
 
     <script src="{% static 'app/content/product_page/java.js' %}"></script>
 
-    <!--Order_create-->
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper.js -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>
-
-     
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js" integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d" crossorigin="anonymous"></script>
+   
   
 
 
