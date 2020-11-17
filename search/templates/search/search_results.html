@@ -1,15 +1,15 @@
+﻿<!DOCTYPE html>
 {% extends 'app/layout.html' %}
 {% load staticfiles %}
-{% block title %}
-<!--{% if category %}{{ category.name }}{% else %}Товары{% endif %}-->
-{% endblock %}
-
-<!DOCTYPE html>
-
-
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
 {% block content %}
 
-<body>
+
+  <body>
     
     <!-- Product -->
 	<div class="bg0 m-t-23 p-b-140">
@@ -259,7 +259,8 @@
 
             
 			<div class="row isotope-grid">
-                {% for product in products %}
+                {% for product in object_list %}
+                
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
 					<!-- Block2 -->
 					<div class="block2">
@@ -267,7 +268,7 @@
 							
                    
                             <a href="{{ product.get_absolute_url }}">
-                            <img src="{% if product.image1 %}{{ product.image1.url }}{%else %}{% static 'app/content/products/no_image.png' %}{% endif %}">
+                            <img src="{% if product.image1 %}{{ product.image1.url }}{% else %}{% static 'app/content/products/no_image.png' %}{% endif %}">
                                </a>
 
 							<a href="{{ product.get_absolute_url }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 "  >
@@ -295,28 +296,15 @@
 						</div>
 					</div>
 				</div>
+                           
                 {% endfor %}
+                {% if object_list %}
+                {% else %}
+                <h2>Ничего не найдено</h2>
+                {% endif %}
                 </div>
             </div>
         </div>
-
-   
-            
-            
-
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-				
 {% endblock %}
-
+</html>

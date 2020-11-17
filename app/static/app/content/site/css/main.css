@@ -3469,5 +3469,91 @@ input.num-product::-webkit-inner-spin-button {
   padding:0;
 }
 
-/*------------------------------------------------БРЕНДЫ-------------------------------------*/
+/*login_form Логин Форма логина*/
+
+.login_form {
+
+	margin:0 auto;
+	margin-top: 250px;
+	padding:0;
+	margin-bottom:250px;
+	max-width:720px;
+}
+
+.login_form h2 {
+	margin-bottom:25px;
+}
+
+/*Форма регистрации reg_form*/
+
+.reg_form {
+	max-width:720px;
+	margin:0 auto;
+	margin-top:250px;
+	margin-bottom:250px;
+}
+
+.reg_form h2 {
+	margin-bottom:25px;
+}
+
+/*------------------------------------------------Всплывающее окно отзывы на product_detail.html-------------------------------------*/
+
+
+
+.review_comment {
+	margin:0 auto;
+	margin-top:25px;
+	
+	max-width:1360px;
+
+	
+	padding:50px;
+	padding-left:5px;
+	padding-top:0px;
+
+}
+
+.author_review {
+
+}
+.author_review img {
+	margin-right:5px;
+}
+
+.author_review_item {
+	display:inline-block;
+}
+
+.review_comment h2 {
+	margin:0 auto;
+	margin-bottom:15px;
+	margin-top:15px;
+	font-size:20px;
+	font-weight:700;
+
+}
+
+.review_comment p {
+	margin:0 auto;
+	margin-top:15px;
+	font-size:14px;
+	font-weight:400;
+}
+
+.review_comment h1 {
+	font-size:15;
+	font-weight:500;
+	margin-right:25px;
+}
+
+/*ТАБЛИЦА ХАРАКТЕИСТИКИ*/
+.table-bordered {
+	width:100%;
+}
+
+.table-bordered td {
+	padding:13px;
+	
+}
 

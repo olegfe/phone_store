@@ -1,6 +1,12 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Category, Product
+from django.shortcuts import render, get_object_or_404,redirect
+from .models import Category, Product, Review
 from cart.forms import CartAddProductForm
+from shop.forms import ReviewForm
+from datetime import datetime
+from django.http import HttpRequest
+#Поиск по сайту
+
+
 
 
 def product_list(request, category_slug=None):
@@ -16,6 +22,8 @@ def product_list(request, category_slug=None):
                    'categories': categories,
                    'products': products})
 
+
+
 def product_detail(request, id, slug,category_slug=None):
     category = None
     categories = Category.objects.all()
@@ -26,5 +34,29 @@ def product_detail(request, id, slug,category_slug=None):
                                 slug=slug,
                                 available=True)
     cart_product_form = CartAddProductForm()
-    return render(request, 'shop/product/detail.html', {'product': product,
+
+
+    # отзыв на продукт
+    reviews = Review.objects.filter(product=id)
+    reviews_count = Review.objects.all()
+    if request.method == "POST": #после отправки данных формы на сервер методом POST
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review_f = form.save(commit=False)
+            review_f.author = request.user
+            review_f.date = datetime.now()
+            review_f.product = Product.objects.get(id=id)
+            review_f.save()
+            
+            return redirect('shop:product_detail', id=product.id, slug=product.slug,) #переадресация на ту же стр
+    else:
+         form = ReviewForm() #создание формы для ввода комментария
+
+    assert isinstance(request, HttpRequest)
+    return render(request, 'shop/product/detail.html', {'product': product,'form':form,'reviews': reviews,'reviews_count':reviews_count,
                                                         'cart_product_form': cart_product_form,'category': category,'categories': categories})
+
+
+
+
+

@@ -77,8 +77,21 @@
     </Compile>
     <Compile Include="orders\views.py" />
     <Compile Include="orders\__init__.py" />
+    <Compile Include="search\admin.py" />
+    <Compile Include="search\apps.py" />
+    <Compile Include="search\migrations\__init__.py" />
+    <Compile Include="search\models.py" />
+    <Compile Include="search\tests.py" />
+    <Compile Include="search\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="search\views.py" />
+    <Compile Include="search\__init__.py" />
     <Compile Include="shop\admin.py" />
     <Compile Include="shop\apps.py" />
+    <Compile Include="shop\forms.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="shop\migrations\__init__.py" />
     <Compile Include="shop\models.py" />
     <Compile Include="shop\tests.py" />
@@ -108,6 +121,10 @@
     <Folder Include="orders\templates\" />
     <Folder Include="orders\templates\orders\" />
     <Folder Include="orders\templates\orders\order\" />
+    <Folder Include="search\" />
+    <Folder Include="search\migrations\" />
+    <Folder Include="search\templates\" />
+    <Folder Include="search\templates\search\" />
     <Folder Include="shop\" />
     <Folder Include="shop\migrations\" />
     <Folder Include="shop\templates\" />
@@ -157,6 +174,8 @@
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />
+    <Content Include="search\templates\search\index.html" />
+    <Content Include="search\templates\search\search_results.html" />
     <Content Include="shop\templates\shop\base.html" />
     <Content Include="shop\templates\shop\product\detail.html" />
     <Content Include="shop\templates\shop\product\list.html" />

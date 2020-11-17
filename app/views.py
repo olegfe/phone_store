@@ -13,6 +13,7 @@ from .models import Blog
 from .models import Comment, Contact
 from shop.models import Category
 from shop.models import Product
+from orders.models import OrderItem
 from .forms import CommentForm
 from .forms import BlogForm, ContactForm
 from django.db.models import Count
@@ -26,18 +27,19 @@ def home(request,category_slug=None):
     categories = Category.objects.all()
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
+    posts_index = Blog.objects.all()[:3] #запрос на выбор 3 статей для главной страницы
     assert isinstance(request, HttpRequest)
     return render(
         request,
         'app/index.html',
-        {'category': category,'categories': categories}
+        {'category': category,'categories': categories, 'posts_index': posts_index}
     )
 
 def contact(request,category_slug=None):
     category = None
     categories = Category.objects.all()
     if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
+        category = get_object_or_404(Category, slug=category_slug) #выводим названия категорий из базы данных
     assert isinstance(request, HttpRequest) 
     if request.method == "POST":
         form = ContactForm(request.POST)
@@ -157,7 +159,7 @@ def blogpost(request,parametr,category_slug=None):
     comments = Comment.objects.filter(post=parametr)
     
 
-    if request.method == "POST": #после отправки данных формы на сервер мтеодом POST
+    if request.method == "POST": #после отправки данных формы на сервер методом POST
         form = CommentForm(request.POST)
         if form.is_valid():
             comment_f = form.save(commit=False)
@@ -224,10 +226,11 @@ def videopost(request):
 def my_orders(request):
     """Renders the about page."""
     products = Product.objects.all()
+    product_ordered = OrderItem.objects.all()
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/my_orders.html', {'products': products}
+        'app/my_orders.html', {'products': products, 'product_ordered': product_ordered}
          )
 
 

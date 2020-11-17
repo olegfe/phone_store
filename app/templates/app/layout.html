@@ -11,6 +11,8 @@
 
 
 <!--===============================================================================================-->	
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/site/vendor/bootstrap/css/bootstrap4.0.css' %}"> <!-----------------Для всплывающего окна на странице product_detail------------------------->
 	<link rel="icon" type="image/png" href="{%  static 'app/content/site/images/icons/favicon.png' %}" >
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'app/content/site/vendor/bootstrap/css/bootstrap.min.css' %}">
@@ -43,12 +45,7 @@
 
     
 
-    <!---------------------------------------------------------- Для слайдера Наши бренды--------------------------------------------------------------->
-    
-    
-
-    
-   <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+   
 
     
 </head>
@@ -125,31 +122,39 @@
 							</li>
 
 							<li>
-								<a href="{% url 'blog' %}">Блог</a>
+								<a href="{% url 'blog' %}">Новости</a>
 							</li>
 
-							<li>
+							<!--<li>
 								<a href="{% url 'links' %}">Наши клиенты</a>
-							</li>
+							</li>-->
 
 							<li>
 								<a href="{% url 'contact' %}">Контакты</a>
 							</li>
 
                             {% if user.is_superuser %}
-                            <li><a href="{% url 'newpost' %}">Добавление статьи</a></li>
+                            <li><a href="{% url 'newpost' %}">Добавить новость</a></li>
                             {% endif %}
 
-                            <li>
+                           <!-- <li>
 								<a href="{% url 'videopost' %}">Видео</a>
-							</li>
+							</li>-->
 
                            
 
 						</ul>
                        
 						
-                            {% if user.is_authenticated %}
+                           
+
+							
+				    </div>
+                    <div class="wrap-icon-header flex-w flex-r-m">
+                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+							<i class="zmdi zmdi-search"></i>
+						</div>
+                      {% if user.is_authenticated %}
                             {% with total_items=cart|length %}
 						    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{ total_items }}">
                               
@@ -158,10 +163,10 @@
 						    </div>
                             {% endwith %}
                         {% endif %}
-
-							
-				    </div>
+                       
+                    </div>
                 </nav>
+               
             </div>
         </div>	
 	
@@ -208,20 +213,29 @@
 
 				<li>
                    <div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							Help & FAQs
+						{% if user.is_authenticated %}
+                        <form id="logoutForm" action="/logout" method="post" class="flex-c-m p-lr-10 trans-04">
+						 {% csrf_token %}
+                         Привет, {{ user.username }} </form>	
+						
+                        {% if  user.is_authenticated %}
+                        <a href="{% url 'my_orders' %}" class="flex-c-m p-lr-10 trans-04">
+						Мои заказы	
 						</a>
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-							My Account
-						</a>
+                       {% endif %}
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							EN
+						<a href="javascript:document.getElementById('logoutForm').submit()" class="flex-c-m p-lr-10 trans-04">
+							Выйти
 						</a>
+                       {% else %}
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
+						<a href="{% url 'login' %}" class="flex-c-m p-lr-10 trans-04">
+							Войти
 						</a>
+                       {% endif %}
+                        {% if not user.is_authenticated %}
+                        <a href="{% url 'registration' %}" class="flex-c-m p-lr-10 trans-04">Регистрация</a>
+                       {% endif %}
 					</div>
 				</li>
 			</ul>
@@ -247,21 +261,21 @@
 					<a href="{% url 'blog' %}">Новости</a>
 				</li>
 
-				<li>
+				<!--<li>
 					<a href="{% url 'links' %}">Наши клиенты</a>
-				</li>
+				</li>-->
 
 				<li>
 				<a href="{% url 'contact' %}">Контакты</a>
 				</li>
 
                 {% if user.is_superuser %}
-                 <li><a href="{% url 'newpost' %}">Добавление статьи</a></li>
+                 <li><a href="{% url 'newpost' %}">Добавить новость</a></li>
                  {% endif %}
 
-                <li>
+               <!-- <li>
 				<a href="{% url 'videopost' %}">Видео</a>
-				</li>
+				</li>-->
 
                {% if not user.is_authenticated %}
                <li><a href="{% url 'registration' %}">Регистрация</a></li>
@@ -274,14 +288,22 @@
 		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
 			<div class="container-search-header">
 				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="images/icons/icon-close2.png" alt="CLOSE">
+					<img src="{% static 'app/content/site/images/icons/icon-close2.png' %}" alt="CLOSE">
 				</button>
 
-				<form class="wrap-search-header flex-w p-l-15">
+
+                
+
+                            
+						
+                     
+
+
+				<form action="{% url 'search_results' %}" method="get" class="wrap-search-header flex-w p-l-15">
 					<button class="flex-c-m trans-04">
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
+					<input class="plh3" type="text" name="q" placeholder="Поиск">
 				</form>
 			</div>
 		</div>
@@ -516,6 +538,9 @@
 	<script src="{% static 'app/content/site/js/map-custom.js' %}"></script>
 
     <script src="{% static 'app/content/product_page/java.js' %}"></script>
+
+<!--===============================================================================================-->
+    <!--Модальное окно всплывающее на product_detail-->
 
    
   

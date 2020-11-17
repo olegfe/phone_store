@@ -6,6 +6,7 @@ from datetime import datetime
 from django.conf.urls import url
 import django.contrib.auth.views
 
+
 import app.forms
 import app.views
 
@@ -37,6 +38,8 @@ urlpatterns = [
     url(r'^newpost$', app.views.newpost, name='newpost'),
     url(r'^videopost$', app.views.videopost, name='videopost'),
     url(r'^my_orders$', app.views.my_orders, name='my_orders'),
+    url(r'^search/', include ('search.urls')),                        #Поиск по сайту
+    
 
     
     

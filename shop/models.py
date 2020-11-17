@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib import admin
+from datetime import datetime
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -31,20 +33,20 @@ class Product(models.Model):
     image3 = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, verbose_name = "Картинка_3")
 
 
-    case_type = models.CharField (max_length = 255 ,default = "input", verbose_name = "Тип корпуса")
+    case_type = models.CharField (max_length = 255 ,default = False, verbose_name = "Тип корпуса")
     duo_sim = models.BooleanField (default = True, verbose_name = "Поддержка двух сим карт")
     sim_type = models.CharField(max_length=255, default="input", verbose_name = "Тип SIM-карты")
     system= models.CharField(max_length = 100, default = "system", verbose_name = "Операционная система")
 
     #ДИСПЛЕЙ
 
-    display_type = models.CharField(max_length = 10, default = "0", verbose_name = "Тип экрана")
-    resolution = models.CharField(max_length = 20, default="0", verbose_name = "Разрешение экрана")
+    display_type = models.CharField(max_length = 10, default = False, verbose_name = "Тип экрана")
+    resolution = models.CharField(max_length = 20,default = False , verbose_name = "Разрешение экрана")
 
     #КОНФИГУРАЦИЯ
-    processor = models.CharField(max_length = 255, default="input", verbose_name = "Процессор")
-    gpu = models.CharField(max_length = 255, default="input", verbose_name = "Графический ускроритель")
-    cores = models.CharField(max_length = 5, default="0", verbose_name = "Кол-во ядер")
+    processor = models.CharField(max_length = 255, default = False, verbose_name = "Процессор")
+    gpu = models.CharField(max_length = 255, default = False, verbose_name = "Графический ускроритель")
+    cores = models.CharField(max_length = 5, default = False, verbose_name = "Кол-во ядер")
     cpu_frequency = models.CharField(max_length = 5,  verbose_name= "Частота процессора")
     ram = models.CharField(max_length=255, verbose_name='Объем оперативной памяти')
     ram_inside = models.CharField(max_length = 255,  verbose_name = "Объем встроенной памяти")
@@ -94,3 +96,26 @@ class Product(models.Model):
 
 
 admin.site.register(Product)
+
+
+
+class Review(models.Model):  #Отзывы о товаре
+    product = models.ForeignKey(Product, on_delete = models.CASCADE, verbose_name = "Продукт")
+    author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = "Автор")
+    plus = models.CharField(max_length= 2000,blank=False,verbose_name = 'Достоинства')
+    minus = models.CharField(max_length = 2000,blank=False, verbose_name = 'Недоститки')
+    comment = models.CharField(max_length = 5000,blank=False, verbose_name = 'Комментарий')
+    date = models.DateTimeField(default = datetime.now(),db_index = True, verbose_name = "Дата")
+
+    
+
+    def __str__(self):
+       return 'Отзыв %s к %s' %(self.author, self.product)
+
+    class Meta:
+        db_table = "Отзывы" # имя таблицы для модели
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзыв к продукту"
+        ordering= ["-date"]
+
+admin.site.register(Review)

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -9,6 +9,7 @@
     {% extends "app/layout.html" %}
 
 {% block content %}
+    <div class="reg_form">
 
 <h2>Регистрация пользователя</h2>
 
@@ -32,7 +33,7 @@
   {% csrf_token %}
 
 </form>
-
+</div>
 {% endblock %}
 </body>
 </html>

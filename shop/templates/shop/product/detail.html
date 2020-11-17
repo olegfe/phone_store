@@ -1,4 +1,4 @@
-{% extends "app/layout.html" %}
+﻿{% extends "app/layout.html" %}
 {% load staticfiles %}
 
 {% block content %}
@@ -10,7 +10,7 @@
 </head>
 
 
-		
+	<body>
 
 <div class="wrap js-modal1 p-t-60 p-b-20">
 		
@@ -38,7 +38,7 @@
 											</a>
 										</div>
 
-                                         <div class="flex-w flex-m p-l-0 p-t-40 respon7">
+                                        <!-- <div class="flex-w flex-m p-l-0 p-t-40 respon7">
 								<div class="flex-m bor9 p-r-10 m-r-11">
 									<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
 										<i class="zmdi zmdi-favorite"></i>
@@ -56,7 +56,7 @@
 								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
 									<i class="fa fa-google-plus"></i>
 								</a>
-							</div>
+							</div>-->
 
 									</div>
 
@@ -87,7 +87,7 @@
 					<div class="col-md-6 col-lg-5 p-b-30">
 						<div class="p-r-50 p-t-5 p-lr-0-lg">
 							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								{{ product.name }}
+								{{ product.name }} 
 							</h4>
 
 							<span class="mtext-106 cl2">
@@ -149,7 +149,7 @@
 												<i class="fs-16 zmdi zmdi-minus"></i>
 											</div>
 
-											<input class="mtext-104 cl3 txt-center num-product" type="text" name="quantity" required id = "id_quantity" value="1">
+											<input class="mtext-104 cl3 txt-center num-product" type="text" name="quantity" required id = "id_quantity" value="1" >
 
 											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-plus"></i>
@@ -158,8 +158,9 @@
                                      
 										
                                         <input class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15  trans-04 js-addcart-detail" type="submit" value="В корзину">
+                                        
                                         {% else %}
-                                            <p>Для совершения покупок<a href="{% url 'login' %}"  >авторизуйтесь.</a> </p>
+                                            <p class="stext-102 cl3 p-t-23">Для добавления товара в корзину, <a href="{% url 'login' %}" > авторизуйтесь.</a> </p>
                                         {% endif %}
 
                                        
@@ -175,9 +176,272 @@
 							
 							
 						</div>
-					</div>
-                <div class="table p-l-130  " >
-      <table class="table table-bordered ">
+
+                    
+				</div>
+
+<!---------------------------------------ХАРАКТЕРИСТИКИ ОТЗЫВЫ------------------------------------------------------------->
+
+
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Характеристики</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Отзывы</a>
+  </li>
+  
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+     <!--ХАРАКТЕРИСТИКИ-->
+      <div class="table_detail">
+   <table class="table-bordered">
+    
+      
+    <tr>
+      <td>Тип корпуса</td>
+      <td><b>{{product.case_type}}</b></td>
+      
+    </tr>
+      <tr>
+      <td>Поддержка двух сим-карт</td>
+          {% if product.duo_sim %}
+      <td>Есть</td>
+          {% else %}
+          <td>Нет</td>
+          {% endif %}
+      
+    </tr>
+    <tr>
+      <td>Тип SIM-карты</td>
+      <td><b>{{product.sim_type}}</b></td>
+      
+    </tr>
+    <tr>
+      <td>Операционая система</td>
+      <td><b>{{product.system}}</b></td>
+    </tr>
+
+    <tr>
+      <td>Экран</td>
+      <td><b>{{product.display_type}}</b></td>
+    </tr>
+     <tr>
+      <td>Разрешение экрана</td>
+      <td><b>{{product.resolution}}</b> П</td>
+    </tr>
+    <tr>
+      <td>Процессор</td>
+      <td><b>{{product.processor}}</b></td>
+    </tr>
+    <tr>
+      <td>Кол-во ядер</td>
+      <td><b>{{product.cores}}</b></td>
+    </tr>
+    <tr>
+      <td>Частота процессора</td>
+      <td><b>{{product.cpu_frequency}}</b> ГГц</td>
+    </tr>
+    <tr>
+      <td>Графческий ускоритель</td>
+      <td><b>{{product.gpu}}</b></td>
+    </tr>
+    <tr>
+      <td>Объем оперативной памяти</td>
+      <td><b>{{product.ram}}</b> Гб</td>
+    </tr>
+     <tr>
+      <td>Объем встроенной памяти</td>
+      <td><b>{{product.ram_inside}}</b> Гб</td>
+    </tr>
+    <tr>
+      <td>Наличие SD-карты</td>
+        {% if product.sd %}
+      <td>Есть</td>
+        {% else %}
+        <td>Нет</td>
+        {% endif %}
+    </tr>
+    <tr>
+      <td>Максимальный объем SD-карты</td>
+      <td><b>{{product.sd_volume_max }}</b> Гб</td>
+    </tr>
+    <tr>
+      <td>Основная камера</td>
+      <td><b>{{product.main_cam_mp }}</b> Мп</td>
+    </tr>
+    <tr>
+      <td>Фронтальная камера</td>
+      <td><b>{{product.frontal_cam_mp }}</b> Мп</td>
+    </tr>
+      <tr>
+      <td>Вспышка</td>
+          {% if product.flash %}
+      <td>Есть</td>
+          {% else %}
+          <td>Нет</td>
+          {% endif %}
+    </tr>
+      <tr>
+      <td>MP-3 Плеер</td>
+          {% if product.mp3_pleer %}
+      <td>Есть</td>
+          {% else %}
+          <td>Нет</td>
+          {% endif %}
+    </tr>
+      <tr>
+      <td>Диктофон</td>
+          {% if product.recorder %}
+      <td>Есть</td>
+          {% else %}
+          <td>Нет</td>
+          {% endif %}
+    </tr>
+      <tr>
+      <td>USB-интерфейс</td>
+      <td><b>{{product.usb_interface }}</b></td>
+    </tr>
+      <tr>
+      <td>Объем аккумулятора</td>
+      <td><b>{{product.accum_volume  }}</b> мА*ч</td>
+    </tr>
+      <tr>
+      <td>Размер корпуса (ШхВхТ) </td>
+      <td><b>{{product.size }}</b> мм</td>
+    </tr>
+      <tr>
+      <td>Вес</td>
+      <td><b>{{product.weigth}}</b> г</td>
+    </tr>
+      <tr>
+      <td>Страна производителя</td>
+      <td><b>{{product.country}}</b></td>
+    </tr>
+      <tr>
+      <td>Гарантия</td>
+      <td><b>{{product.warranty }}</b></td>
+    </tr>
+
+          <tr>
+      <td>Наличие</td>
+              {% if  product.available %}
+              <td>В наличии</td>
+              {% else %}
+      <td>Нет в наличии</td>
+              {% endif %}
+    </tr>
+
+    
+  </table> 
+</div>
+    
+    </div>
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      <!--ОТЗЫВЫ-->
+       <!--ВЫСПЛЫВАЮOЕЕ ОКНО--> 
+   <!-- Button trigger modal -->
+      <div class="modal_window">
+        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">
+  Оставить свой отзыв
+        </button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Оставьте свой отзыв</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--ФОРМА ОТЗЫВА-->
+
+        {% if user.is_authenticated %}  
+    <form method="POST">
+          {% csrf_token %}
+          <div class="bor8 m-b-30">
+              
+		  <textarea type="text" name="plus" max_lenght = "2000" required id="id_plus" rows="3" cols="56" class=" stext-111 cl2 plh3  p-lr-28 p-tb-25"  placeholder="Достоинства"></textarea>
+          </div>
+        <div class="bor8 m-b-30">
+           
+        <textarea type="text" name="minus" max_lenght = "2000" required id="id_minus" rows="3" cols="56" class=" stext-111 cl2 plh3  p-lr-28 p-tb-25"  placeholder="Недостатки"></textarea>
+          </div>
+        <div class="bor8 m-b-30">
+            
+		  <textarea type="text" name="comment" max_lenght = "5000" required id="id_comment" rows="3" cols="56" class="stext-111 cl2 plh3  p-lr-28 p-tb-25"  placeholder="Комментарий"></textarea>
+          </div>
+          <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15" >Оставить отзыв</button>
+      </form>
+
+      {% else %}
+      <p class="stext-102 cl3 p-t-23">Для добавления отзыва<a href="{% url 'login' %}" > авторизуйтесь.</a> </p>
+      {% endif %}
+
+          <!------------>
+      </div>
+      
+    </div>
+  </div>
+</div>
+      </div>
+
+      {% for review in reviews %}
+
+      <div class="review_comment">
+       <div class="author_review">  
+      <img class="author_review_item" src="{% static 'app/content/site/images/icons/profile_icon.png'%}" />
+      <h1 class="author_review_item" >{{review.author}}</h1> 
+      <h1 class="author_review_item" >{{review.date}}</h1>
+      </div> 
+      
+      
+      <h2>Достоинства</h2>
+
+      <p>{{review.plus|linebreaksbr}}</p>
+
+      <h2>Недостатки</h2>
+      <p>{{review.minus|linebreaksbr}}</p>
+
+          <h2>Комментарий</h2>
+          
+      <p>{{review.comment|linebreaksbr}}</p>
+        
+      
+</div>
+      {% endfor %}
+     
+
+    </div>
+  
+</div>
+
+
+<!----------------------------------------------------------------------------------------------------------------------------->
+            </div>         
+        </div>
+</div>
+    </body>
+  
+{% endblock %}
+
+
+
+<!--<form action="{% url "cart:cart_add" product.id %}" method="post" >
+
+            {{ cart_product_form }}
+             {{ cart_product_form.quantity }}
+            {% if  user.is_authenticated %}
+            <input type="submit" value="Add to cart">
+            {% endif %}
+            </form>-->
+
+
+ <!--<table class="table table-bordered ">
     <tr class="header">
       <td colspan="2">Характеристики</td>
     </tr>
@@ -189,7 +453,11 @@
     </tr>
       <tr>
       <td>Поддержка двух сим-карт</td>
-      <td>{{product.duo_sim}}</td>
+          {% if product.duo_sim %}
+      <td>Есть</td>
+          {% else %}
+          <td>Нет</td>
+          {% endif %}
       
     </tr>
     <tr>
@@ -219,7 +487,7 @@
       <td>{{product.cores}}</td>
     </tr>
     <tr>
-      <td>Частота проессора</td>
+      <td>Частота процессора</td>
       <td>{{product.cpu_frequency}}</td>
     </tr>
     <tr>
@@ -236,7 +504,11 @@
     </tr>
     <tr>
       <td>Наличие SD-карты</td>
-      <td>{{product.sd}}</td>
+        {% if product.sd %}
+      <td>Есть</td>
+        {% else %}
+        <td>Нет</td>
+        {% endif %}
     </tr>
     <tr>
       <td>Максимальный объем SD-карты</td>
@@ -252,15 +524,27 @@
     </tr>
       <tr>
       <td>Вспышка</td>
-      <td>{{product.flash }}</td>
+          {% if product.flash %}
+      <td>Есть</td>
+          {% else %}
+          <td>Нет</td>
+          {% endif %}
     </tr>
       <tr>
       <td>MP-3 Плеер</td>
-      <td>{{product.mp3_pleer }}</td>
+          {% if product.mp3_pleer %}
+      <td>Есть</td>
+          {% else %}
+          <td>Нет</td>
+          {% endif %}
     </tr>
       <tr>
       <td>Диктофон</td>
-      <td>{{product.recorder }}</td>
+          {% if product.recorder %}
+      <td>Есть</td>
+          {% else %}
+          <td>Нет</td>
+          {% endif %}
     </tr>
       <tr>
       <td>USB-интерфейс</td>
@@ -287,34 +571,36 @@
       <td>{{product.warranty }}</td>
     </tr>
 
+          <tr>
+      <td>Наличие</td>
+              {% if  product.available %}
+              <td>В наличии</td>
+              {% else %}
+      <td>Нет в наличии</td>
+              {% endif %}
+    </tr>
+
     
-  </table> 
-		</div>
-				</div>
+  </table>-->
+
+<!--{% if user.is_authenticated %}
+    <form method="POST">
+          {% csrf_token %}
+          <div class="bor8 m-b-30">
+              
+		  <input type="text" name="plus" max_lenght = "2000" required id="id_plus" class="stext-111 cl2 plh3 size-80 p-lr-28 p-tb-15"  placeholder="как мы можем помочь?">
+          </div>
+        <div class="bor8 m-b-30">
+           
+        <input type="text" name="minus" max_lenght = "2000" required id="id_minus" class="stext-111 cl2 plh3 size-80 p-lr-28 p-tb-15"  placeholder="как мы можем помочь?">
+          </div>
+        <div class="bor8 m-b-30">
             
-			</div>
-    </div>
-     
-			
-		
-	
+		  <input type="text" name="comment" max_lenght = "2000" required id="id_comment" class="stext-111 cl2 plh3 size-80 p-lr-28 p-tb-15"  placeholder="как мы можем помочь?">
+          </div>
+          <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15" >Оставить отзыв</button>
+      </form>
 
-
-    
-    
-     
-
-
-
-  
-{% endblock %}
-
-
-<!--<form action="{% url "cart:cart_add" product.id %}" method="post" >
-
-            {{ cart_product_form }}
-             {{ cart_product_form.quantity }}
-            {% if  user.is_authenticated %}
-            <input type="submit" value="Add to cart">
-            {% endif %}
-            </form>-->
+      {% else %}
+      <p class="stext-102 cl3 p-t-23">Для добавления отзыва<a href="{% url 'login' %}" > авторизуйтесь.</a> </p>
+      {% endif %}-->
