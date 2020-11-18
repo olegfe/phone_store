@@ -5,13 +5,14 @@
 {% block content %} 
 <div class=" my_orders">
 
-{% for product_ordered in product_ordered %}
+{% for item in orders %}
 
-{{product_ordered.product}}
-
-
-
+{{item}}
 {% endfor %}
+
+    {% for item_1 in product %}
+    {{item_1}}
+    {% endfor %}
 </div>
 
 {% endblock %}
