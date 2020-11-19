@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .models import OrderItem
+from .models import OrderItem, Order
 from .forms import OrderCreateForm
+from django.contrib.auth.models import User
 from cart.cart import Cart
 
 
