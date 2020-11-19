@@ -5,8 +5,9 @@ from django.contrib.auth.models import User
 
 class Order(models.Model):
     
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    nickname = models.ForeignKey(User, on_delete=models.CASCADE, default=False)
+    product = models.ForeignKey(Product, default=False)
+    
     email = models.EmailField()
     
     postal_code = models.CharField(max_length=20)

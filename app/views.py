@@ -13,7 +13,7 @@ from .models import Blog
 from .models import Comment, Contact
 from shop.models import Category
 from shop.models import Product
-from orders.models import OrderItem
+from orders.models import OrderItem, Order
 from .forms import CommentForm
 from .forms import BlogForm, ContactForm
 from django.db.models import Count
@@ -225,12 +225,12 @@ def videopost(request):
 
 def my_orders(request):
     """Renders the about page."""
-    products = Product.objects.all()
-    product_ordered = OrderItem.objects.all()
-    assert isinstance(request, HttpRequest)
+    orders = Order.objects.filter(nickname=request.user)
+    
+    #assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/my_orders.html', {'products': products, 'product_ordered': product_ordered}
+        'app/my_orders.html', {'orders': orders,}
          )
 
 

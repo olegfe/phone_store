@@ -5,12 +5,15 @@
 {% block content %} 
 <div class=" my_orders">
 
-{% for product_ordered in product_ordered %}
-
-{{product_ordered.product}}
-
-
-
+{% for order in orders %}
+<ul>
+    <li>
+        {{order.id}}
+    </li>
+    <li>
+        {{order.product.name}}
+    </li>
+</ul>
 {% endfor %}
 </div>
 
